@@ -96,7 +96,17 @@ angular.module('myApp',['ngRoute','ngDialog'])
 		return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
 		  //txtRegEmail.value = firebase.auth().currentUser.email;
 		  if (snapshot.val() == null) {
-			//dialog.showModal();
+
+			ngDialog.open({
+			    template: 'views/dialog_profiling.html',
+			    className: 'ngdialog-theme-default',
+			    controller: 'dialogProfileCtrl',
+ 				scope: $scope,
+ 				closeByEscape: false,
+ 				closeByNavigation: false,
+ 				closeByDocument: false,
+ 				showClose: false
+				});
 		  }
 		});
 	}
@@ -115,10 +125,17 @@ angular.module('myApp',['ngRoute','ngDialog'])
 	  });
 	}*/
 
+	firebase.database().ref('users').once('value', function(snapshot) {
+		  snapshot.forEach(function(childSnapshot) {
+			   	console.log(childSnapshot.val());
+		  });
+	});
 
 	firebase.auth().onAuthStateChanged(firebaseUser => {
 		if (firebaseUser) {
+			$scope.user = firebaseUser;
 			isExisting();
+			console.log(firebaseUser);
 		} else {
 			alert('Logging out');
 			window.location.replace('index.html');
