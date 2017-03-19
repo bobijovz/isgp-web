@@ -1,0 +1,27 @@
+
+<div class="mdl-card__title mdl-card--expand">
+	<h4 class="mdl-dialog__title">Sign up</h4>
+</div>
+<div class="mdl-card__supporting-text">
+	<form name="regForm">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegEmail.value != null || txtRegEmail.isFocus == true}">
+			<input ng-blur="txtRegEmail.isFocus= false" ng-focus="txtRegEmail.isFocus=true" id="txtRegEmail" name="txtRegEmail" ng-model="txtRegEmail.value" type="email" class="mdl-textfield__input" required>
+			<label for="txtRegEmail" class="mdl-textfield__label">Email</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegPassword.value != null || txtRegPassword.isFocus==true}">
+			<input  ng-blur="txtRegPassword.isFocus=false" ng-focus="txtRegPassword.isFocus=true" id="txtRegPassword"  name="txtRegPassword" ng-model="txtRegPassword.value"  type="password" class="mdl-textfield__input" ng-minlength="6" required>
+			<label class="mdl-textfield__label">Password</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtVerify.value != null || txtVerify.isFocus==true}">
+			<input ng-blur="txtVerify.isFocus=false" ng-focus="txtVerify.isFocus = true" id="txtVerify" name="txtVerify" ng-model="txtVerify.value" type="password" class="mdl-textfield__input" ng-minlength="6" required>
+			<label class="mdl-textfield__label">Repeat Password</label>
+		</div>
+		
+  		
+	</form>
+</div>
+<div class="mdl-dialog__actions">
+	<button ng-click="onRegisterSubmit(regForm)" type="button" id="btnProceed" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Register</button>
+	<button ng-click="closeThisDialog()" type="button" class="mdl-button close">Cancel</button>
+</div>
+

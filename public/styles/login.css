@@ -1,0 +1,20 @@
+body{
+	background: #e1e1e1;
+}
+
+.demo-card-square{
+	width: 400px;
+	margin: 100px auto;
+	
+}
+.demo-card-square > .mdl-card__title {
+	background: url('../images/logo.png') center #D8412F;
+	background-size: 80% 80%;
+    background-repeat: no-repeat;
+    height: 150px;
+}
+
+.demo-card-square > .mdl-card__supporting-text {
+	margin: 20px 20px;
+
+}

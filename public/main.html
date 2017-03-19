@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp" >
+<head>
+  <meta charset="utf-8">
+  <title>Isagip Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-indigo.min.css" />
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link rel="stylesheet" href="styles/ngDialog.css">
+  <link rel="stylesheet" href="styles/ngDialog-theme-default.css">
+
+</head>
+
+<body ng-controller="mainCtrl" >
+  <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--colored">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">ISagip</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+        <!--Notification Icon here-->
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Admin Panel</span>
+      <nav class="mdl-navigation">
+
+        <a class="mdl-navigation__link" href="#monitoring">Monitoring</a>
+        <a class="mdl-navigation__link" href="#reports">Reports</a>
+        <a class="mdl-navigation__link" href="#map">Map</a>
+        <a ng-click="logOut()" id="btnLogout" class="mdl-navigation__link" href="#">Logout</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div ng-view></div>
+    </main>
+  </div>
+
+
+</body>
+
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-messaging.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script type="text/javascript" src="scripts/ngDialog.min.js"></script>
+
+<script type="text/javascript" src="router.js"></script>
+<script type="text/javascript" src="scripts/monitoring.js"></script>
+<script type="text/javascript" src="scripts/reports.js"></script>
+<script type="text/javascript" src="scripts/map.js"></script>
+</html>
