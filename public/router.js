@@ -62,9 +62,15 @@ angular.module('myApp',['ngRoute','ngDialog'])
 		console.log(firebaseUser);
 		if (firebaseUser) {
 			if(firebaseUser.emailVerified){
-
-				alert("Logged in");
-				$window.location.href = '/main.html';
+				firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot) {
+					if (snapshot.val().type == 'admin') {
+						alert("Logged in");
+						$window.location.href = '/main.html';
+					} else {
+						alert("Need an admin accout to proceed.");
+						firebase.auth().signOut();
+					}
+				});
 			} else {
 				alert("Account not yet verified.");
 
@@ -92,6 +98,10 @@ angular.module('myApp',['ngRoute','ngDialog'])
 
 	$scope.logOut = function(){
 		auth.signOut();
+	}
+
+	$scope.showNotif = function(){
+		alert("Underconstruction");
 	}
 
 	function isExisting(){

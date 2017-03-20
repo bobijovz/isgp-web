@@ -22,6 +22,9 @@
         <!-- Navigation -->
         <nav class="mdl-navigation">
         <!--Notification Icon here-->
+        <a style="color:#fff;" ng-click="showNotif()" href="#" >
+          <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="1">notifications</div>
+        </a>
         </nav>
       </div>
     </header>
@@ -43,19 +46,28 @@
 
 </body>
 
+
+
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-messaging.js"></script>
 
-<script src="scripts/angular.min.js"></script>
-<script src="scripts/angular-route.js"></script>
-<script type="text/javascript" src="scripts/ngDialog.min.js"></script>
+<script src="libs/angular.min.js"></script>
+<script src="libs/angular-route.js"></script>
+<script type="text/javascript" src="libs/ngDialog.min.js"></script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBleEL_kBfNScoeG8P0SuOOhZkqQ6wFTVQ&extension=.js"></script>
 
 <script type="text/javascript" src="router.js"></script>
 <script type="text/javascript" src="scripts/dialog_profiling.js"></script>
 <script type="text/javascript" src="scripts/monitoring.js"></script>
 <script type="text/javascript" src="scripts/reports.js"></script>
 <script type="text/javascript" src="scripts/map.js"></script>
+
+
+
 </html>
