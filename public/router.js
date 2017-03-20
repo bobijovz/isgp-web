@@ -13,6 +13,14 @@ angular.module('myApp',['ngRoute','ngDialog'])
 				templateUrl : 'views/reports.html',
 				controller  : 'reportsCtrl'
 			})
+			.when('/feedback', {
+				templateUrl : 'views/feedback.html',
+				controller  : 'feedbackCtrl'
+			})
+			.when('/sender', {
+				templateUrl : 'views/sender.html',
+				controller  : 'senderCtrl'
+			})
 			.when('/map', {
 				templateUrl : 'views/map.html',
 				controller  : 'mapCtrl'
