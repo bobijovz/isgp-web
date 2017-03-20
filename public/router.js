@@ -59,8 +59,10 @@ angular.module('myApp',['ngRoute','ngDialog'])
 	}
 
 	firebase.auth().onAuthStateChanged(firebaseUser => {
+		console.log(firebaseUser);
 		if (firebaseUser) {
 			if(firebaseUser.emailVerified){
+
 				alert("Logged in");
 				$window.location.href = '/main.html';
 			} else {
@@ -77,6 +79,7 @@ angular.module('myApp',['ngRoute','ngDialog'])
 
 })
 .controller('mainCtrl', function($scope, $window, ngDialog) {
+	$scope.reports;
 	var config = {
 		apiKey: "AIzaSyBe2S2pfk22ukZvH3o-se7fN-6LFHc2MXg",
 		authDomain: "isagip-d2c44.firebaseapp.com",
@@ -111,24 +114,20 @@ angular.module('myApp',['ngRoute','ngDialog'])
 		});
 	}
 
-	/*function writeUserData(name, email, contact, birthdate, org, position, type, status) {
-	  firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-	    id: firebase.auth().currentUser.uid,
-	    name: name,
-	    email : email,
-	    contact : contact,
-	    birthdate : birthdate,
-	    org : org,
-	    position : position,
-	    type : "admin",
-	    status : "active"
-	  });
-	}*/
+	firebase.database().ref('request').once('value', function(snapshot) {
+		var obj = snapshot.val();
+		console.log(obj);
+		/*console.log(snapshot.val());
+			snapshot.val().forEach(function(childSnapshot) {
+				obj[childSnapshot.key] = childSnapshot.val();
 
-	firebase.database().ref('users').once('value', function(snapshot) {
-		  snapshot.forEach(function(childSnapshot) {
-			   	console.log(childSnapshot.val());
-		  });
+				console.log(obj);
+				/*childSnapshot.forEach(function(data){
+					console.log(data.val());
+				});
+			});*/
+		$scope.reports = snapshot.val();
+
 	});
 
 	firebase.auth().onAuthStateChanged(firebaseUser => {

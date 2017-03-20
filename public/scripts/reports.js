@@ -1,5 +1,10 @@
 	angular.module('myApp')
 		.controller('reportsCtrl',['$scope', function($scope) {
-		// create a message to display in our view
-		$scope.message = 'Meow';
+
+		firebase.database().ref('request').once('value', function(snapshot) {
+			var obj = snapshot.val();
+			$scope.reports = snapshot.val();
+		});
+		console.log($scope.reports);
+
 	}]);

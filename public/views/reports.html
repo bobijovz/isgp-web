@@ -1,5 +1,32 @@
 <div class="jumbotron text-center">
 	<h1>Reports Page</h1>
 	
-	<p>{{ message }}</p>
+	<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+	  <thead>
+	    <tr>
+	      <th>Email</th>
+	      <th>Barangay</th>
+	      <th>City</th>
+	      <th>Food</th>
+	      <th>Medicine</th>
+	      <th>Water</th>
+	      <th>Others</th>
+	      <th>Date</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="item in reports">
+	      <td class="mdl-data-table__cell">{{item.email}}</td>
+ 			<td class="mdl-data-table__cell">{{item.barangay}}</td>
+   			<td class="mdl-data-table__cell">{{item.city}}</td>
+    		<td class="mdl-data-table__cell">{{item.food}}</td>
+     		<td class="mdl-data-table__cell">{{item.medicine}}</td>
+      		<td class="mdl-data-table__cell">{{item.water}}</td>
+       		<td class="mdl-data-table__cell">{{item.others}}</td>
+        	<td class="mdl-data-table__cell">{{item.date}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+
 </div>
