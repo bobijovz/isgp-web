@@ -1,5 +1,5 @@
 angular.module('myApp')
-		.controller('feedbackCtrl', ['$scope', function($scope) {
-
+		.controller('feedbackCtrl', ['$scope','Page', function($scope, Page) {
+			Page.setTitle("Feedback");
 
 		}]);

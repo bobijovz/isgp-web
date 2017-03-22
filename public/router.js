@@ -21,11 +21,22 @@ angular.module('myApp',['ngRoute','ngDialog'])
 				templateUrl : 'views/sender.html',
 				controller  : 'senderCtrl'
 			})
+			.when('/operations', {
+				templateUrl : 'views/operations.html',
+				controller  : 'operationsCtrl'
+			})
 			.when('/map', {
 				templateUrl : 'views/map.html',
 				controller  : 'mapCtrl'
 			});
 		
+})
+.factory('Page', function() {
+   var title = 'Dashboard';
+   return {
+     title: function() { return title; },
+     setTitle: function(newTitle) { title = newTitle }
+   };
 })
 .controller('loginCtrl', function($scope, $window, ngDialog) {
 
@@ -92,7 +103,8 @@ angular.module('myApp',['ngRoute','ngDialog'])
 
 
 })
-.controller('mainCtrl', function($scope, $window, ngDialog) {
+.controller('mainCtrl', function($scope, $window, ngDialog, Page) {
+	$scope.Page = Page;
 	$scope.reports;
 	var config = {
 		apiKey: "AIzaSyBe2S2pfk22ukZvH3o-se7fN-6LFHc2MXg",
@@ -134,19 +146,10 @@ angular.module('myApp',['ngRoute','ngDialog'])
 
 	firebase.database().ref('request').once('value', function(snapshot) {
 		var obj = snapshot.val();
-		console.log(obj);
-		/*console.log(snapshot.val());
-			snapshot.val().forEach(function(childSnapshot) {
-				obj[childSnapshot.key] = childSnapshot.val();
-
-				console.log(obj);
-				/*childSnapshot.forEach(function(data){
-					console.log(data.val());
-				});
-			});*/
 		$scope.reports = snapshot.val();
-
 	});
+
+
 
 	firebase.auth().onAuthStateChanged(firebaseUser => {
 		if (firebaseUser) {

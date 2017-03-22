@@ -21,8 +21,8 @@ var locations = [
 
 
 angular.module('myApp')
-	.controller('mapCtrl',['$scope', function($scope) {
-		console.log("Map");
+	.controller('mapCtrl',['$scope','Page', function($scope,Page) {
+		Page.setTitle("Map");
 
 		var mapOptions = {
         zoom: 4,

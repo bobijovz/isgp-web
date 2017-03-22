@@ -1,35 +1,143 @@
 <div class="jumbotron text-center">
-	<h1>Monitoring Page</h1>
-	
-	<div id="piechart" style="width: 100%; height: 300px;"></div>
 
-	<table style="margin: 50px auto; text-align: center;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+	
+<table style="width:900px; margin: 50px auto;">
+<tbody>
+	<tr>
+		<td colspan="2">
+			<div style="height: 300px; width: 100%;" id="map"></div>
+		</td>
+	</tr>
+	<tr>
+		<td style="width:70%;">
+			<div style="width:100%; height: 400px;" id="piechart"></div>
+		</td>
+		<td style="width:30%;">
+			<h5>List of Affected Areas</h5>
+			<ul class="demo-list-control mdl-list">
+			  <li class="mdl-list__item">
+			    
+			    <span class="mdl-list__item-secondary-action">
+			      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-1">
+			        <input type="radio" id="list-option-1" class="mdl-radio__button" name="options" value="1" checked />
+			      </label>
+			    </span>
+			    <span class="mdl-list__item-primary-content">
+			      Liloan, Cebu City
+			    </span>
+			  </li>
+			   <li class="mdl-list__item">
+			    
+			    <span class="mdl-list__item-secondary-action">
+			      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-2">
+			        <input type="radio" id="list-option-2" class="mdl-radio__button" name="options" value="2"  />
+			      </label>
+			    </span>
+			    <span class="mdl-list__item-primary-content">
+			      Minglanilla, Cebu City
+			    </span>
+			  </li>
+			   <li class="mdl-list__item">
+			    
+			    <span class="mdl-list__item-secondary-action">
+			      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-3">
+			        <input type="radio" id="list-option-3" class="mdl-radio__button" name="options" value="3"  />
+			      </label>
+			    </span>
+			    <span class="mdl-list__item-primary-content">
+			     Consolacion, Cebu City
+			    </span>
+			  </li>
+			   <li class="mdl-list__item">
+			    
+			    <span class="mdl-list__item-secondary-action">
+			      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-4">
+			        <input type="radio" id="list-option-4" class="mdl-radio__button" name="options" value="4"  />
+			      </label>
+			    </span>
+			    <span class="mdl-list__item-primary-content">
+			     Balamban, Cebu City
+			    </span>
+			  </li>
+			   <li class="mdl-list__item">
+			    
+			    <span class="mdl-list__item-secondary-action">
+			      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-5">
+			        <input type="radio" id="list-option-5" class="mdl-radio__button" name="options" value="5"  />
+			      </label>
+			    </span>
+			    <span class="mdl-list__item-primary-content">
+			     Argao, Cebu City
+			    </span>
+			  </li>
+			</ul>
+		</td>
+	</tr>
+</tbody>
+</table>
+
+<table style="margin: 0 auto 200px; width: 800px;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 	  <thead>
 	    <tr>
+	      <th>Email</th>
+	      <th>Location</th>
+	      <th>Food</th>
+	      <th>Medicine</th>
+	      <th>Clothes</th>
+	      <th>Others</th>
+	      <th>Date</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="item in reports">
+	      <td class="mdl-data-table__cell">{{item.email}}</td>
+ 			<td class="mdl-data-table__cell">{{item.location}}</td>
+    		<td class="mdl-data-table__cell">{{item.food}}</td>
+     		<td class="mdl-data-table__cell">{{item.medicine}}</td>
+      		<td class="mdl-data-table__cell">{{item.clothes}}</td>
+       		<td class="mdl-data-table__cell">{{item.others}}</td>
+        	<td class="mdl-data-table__cell">{{item.date}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	<!-- <table style="margin: 50px auto; text-align: center;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+	  <thead>
+	    <tr>
+	      <th style="width:200px;"><h4>Sender</h4></th>
 	      <th style="width:200px;"><h4>Needs</h4></th>
-	      <th style="width:200px;"><h4>Number of Reports</h4></th>
+	      <th style="width:200px;"><h4>Location</h4></th>
+	      <th style="width:200px;"><h4>Rate</h4></th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr>
-	      	<td class="mdl-data-table__cell">FOOD</td>
- 			<td class="mdl-data-table__cell">600</td>
+	      	<td class="mdl-data-table__cell">Omana, Eduard</td>
+ 			<td class="mdl-data-table__cell">Water</td>
+ 			<td class="mdl-data-table__cell">Project 4, Quezin City, Metro Manila</td>
+ 			<td class="mdl-data-table__cell"> 20% </td>
    		
 	    </tr>
 	     <tr>
-	      	<td class="mdl-data-table__cell">WATER</td>
- 			<td class="mdl-data-table__cell">333</td>
+	      	<td class="mdl-data-table__cell">Schwab, Cobi</td>
+ 			<td class="mdl-data-table__cell">Food, Water</td>
+ 			<td class="mdl-data-table__cell">Palmera 5 Antipolo, Rizal</td>
+ 			<td class="mdl-data-table__cell"> 50% </td>
    			
 	    </tr>
 	     <tr>
-	      	<td class="mdl-data-table__cell">MEDICINE</td>
- 			<td class="mdl-data-table__cell">200</td>
+	      	<td class="mdl-data-table__cell">Chua, Bernard</td>
+ 			<td class="mdl-data-table__cell">Medicine</td>
+ 			<td class="mdl-data-table__cell">Pinamungahan Cebu</td>
+ 			<td class="mdl-data-table__cell">80%</td>
    	
 	    </tr>
 	     <tr>
- 			<td class="mdl-data-table__cell">OTHERS</td>
-   			<td class="mdl-data-table__cell">1543</td>
+ 			<td class="mdl-data-table__cell">Canoy, Renniel</td>
+   			<td class="mdl-data-table__cell">Other: Love, Food</td>
+   			<td class="mdl-data-table__cell">Paracelis Mountain Province</td>
+ 			<td class="mdl-data-table__cell">10%</td>
 	    </tr>
 	  </tbody>
-	</table>
+	</table> -->
 </div>
