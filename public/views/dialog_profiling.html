@@ -1,0 +1,35 @@
+<div  class="mdl-card__title mdl-card--expand">
+	<h4 class="mdl-dialog__title">Profile</h4>
+</div>
+<div class="mdl-card__supporting-text">
+	<form name="profileForm" ng-model="profileForm">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused"> 
+			<input ng-model="txtRegEmail" id="txtRegEmail"  name="txtRegEmail" type="email" class="mdl-textfield__input" disabled> 
+			<label class="mdl-textfield__label">Email</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegName.value != null || txtRegName.isFocus == true}">
+			<input ng-blur="txtRegName.isFocus= false" ng-focus="txtRegName.isFocus=true" ng-model="txtRegName.value" id="txtRegName" name="txtRegName" type="text" class="mdl-textfield__input" required>
+			<label for="txtRegName" class="mdl-textfield__label">Full Name</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegContact.value != null || txtRegContact.isFocus == true}">
+			<input ng-blur="txtRegContact.isFocus= false" ng-focus="txtRegContact.isFocus=true" ng-model="txtRegContact.value" id="txtRegContact"  name="txtRegContact" type="text" class="mdl-textfield__input" required>
+			<label class="mdl-textfield__label">Contact</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused">
+			<input ng-model="txtRegBirthdate.value" id="txtRegBirthdate" name="txtRegBirthdate" type="date" class="mdl-textfield__input" required>
+			<label class="mdl-textfield__label">Birthdate</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegOrganization.value != null || txtRegOrganization.isFocus == true}">
+			<input ng-blur="txtRegOrganization.isFocus= false" ng-focus="txtRegOrganization.isFocus=true" ng-model="txtRegOrganization.value" id="txtRegOrganization" name="txtRegOrganization" type="text" class="mdl-textfield__input" required>
+			<label class="mdl-textfield__label">Organization</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtRegPosition.value != null || txtRegPosition.isFocus == true}">
+			<input ng-blur="txtRegPosition.isFocus= false" ng-focus="txtRegPosition.isFocus=true" ng-model="txtRegPosition.value" id="txtRegPosition" name="txtRegPosition" type="text" class="mdl-textfield__input" required>
+			<label class="mdl-textfield__label">Organization Position</label>
+		</div>
+	</form>
+
+</div>
+<div class="mdl-dialog__actions">
+	<button ng-click="onProfileUpdate(profileForm)" type="button" id="btnUpdate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Update</button>
+</div>

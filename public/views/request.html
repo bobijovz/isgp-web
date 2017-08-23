@@ -1,0 +1,111 @@
+<style type="text/css">
+	#request-card {
+		width: 90%;
+		margin: 50px auto;
+	}
+	#request-card > .mdl-card__title {
+		color: #fff;
+		background: #555555;
+	}
+
+	#request-card > .mdl-card__supporting-text {
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.location {
+		display: block;
+		width: 300px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		text-align: right;
+	}
+	.location-title {
+		display: block;
+		width: 120px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		
+	}
+	li:hover { cursor: pointer; cursor: hand; background: #cccccc;}
+
+</style>
+<div class="jumbotron text-center">
+
+	<div id="request-card" class="mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title ">
+			<h2 class="mdl-card__title-text">List of Request</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+		<!-- <select ng-model="requestOption" ng-change="refreshList()">
+			<option>all</option>
+			<option>requested</option>
+			<option>sent</option>
+		</select> -->
+			<div class="mdl-grid" style="overflow: hidden; height: 500px; position: relative;">
+				<div class="mdl-cell mdl-cell--3-col" >
+					<h5>List of Affected Areas</h5> 
+					<ul  class="demo-list-two mdl-list" style=" overflow-y: scroll; height: 80%;">
+						<li ng-click="generateReport()" class="mdl-list__item mdl-list__item--two-line">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-avatar">place</i>
+								<span class="location-title">Show All</span>
+								<span class="mdl-list__item-sub-title">All Calamities</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+
+								<i class="mdl-list__item-secondary-action material-icons">keyboard_arrow_right</i>
+							</span>
+						</li>
+						<li ng-click="generateReport(item)" ng-repeat="(key, item) in affected track by $index" class="mdl-list__item mdl-list__item--two-line">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-avatar">place</i>
+								<span class="location-title">{{item.location}}</span>
+								<span class="mdl-list__item-sub-title">{{item.calamity}}</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+
+								<i class="mdl-list__item-secondary-action material-icons">keyboard_arrow_right</i>
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="mdl-cell mdl-cell--9-col">
+
+					<div style="width:700px; margin: 0 auto;" id="piechart"></div>
+
+				</div>
+			</div>
+			<table style="margin: 0 auto 200px; padding: 50px; width: 100%;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+				<thead>
+					<tr>
+						<th>Email</th>
+						<th>Location</th>
+						<th>Head</th>
+						<th>Food</th>
+						<th>Medicine</th>
+						<th>Clothes</th>
+						<th>Others</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in filteredRequest | orderBy:'date':true">
+						<td class="mdl-data-table__cell">{{item.email}}</td>
+						<td class="mdl-data-table__cell">
+							<div class="location">{{item.location}} </div>  
+						</td>
+						<td class="mdl-data-table__cell">{{countHead(item)}}</td>
+						<td class="mdl-data-table__cell">{{item.food}}</td>
+						<td class="mdl-data-table__cell">{{item.medicine}}</td>
+						<td class="mdl-data-table__cell">{{item.clothes}}</td>
+						<td class="mdl-data-table__cell">{{item.others}}</td>
+						<td class="mdl-data-table__cell">{{item.date}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

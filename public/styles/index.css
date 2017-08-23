@@ -1,0 +1,26 @@
+body{
+	background: #e1e1e1;
+}
+
+#login-card{
+	width: 400px;
+	margin: 100px auto;
+	
+}
+#login-card > .mdl-card__title {
+	background: url('../images/logo.png') center #D8412F;
+	background-size: 80%;
+    background-repeat: no-repeat;
+    height: 150px;
+}
+
+#login-card > .mdl-card__supporting-text {
+	margin: 20px;
+
+}
+
+
+p {
+	 word-break: break-all;
+    white-space: normal;
+}

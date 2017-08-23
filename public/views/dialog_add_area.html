@@ -1,0 +1,132 @@
+<style>
+	#card_add_area {
+		width: 700px;
+		height: 80%;
+	}
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+    </style>
+    <div id="card_add_area" class="mdl-card mdl-shadow--2dp">
+    	<div class="mdl-card__title mdl-card--expand">
+    		<h4 class="mdl-dialog__title">Add affected area</h4>
+    	</div>
+    	<div class="mdl-card__supporting-text">
+	<!-- <form name="regForm">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+			<input id="pac-input" type="text" class="mdl-textfield__input" required>
+			<label for="pac-input" class="mdl-textfield__label">Enter location</label>
+		</div>
+	</form> -->
+	<div class="pac-card" id="pac-card">
+		<div>
+			<div id="title">
+				Autocomplete search
+			</div>
+			<div id="type-selector" class="pac-controls">
+				<input type="radio" name="type" id="changetype-all" checked="checked">
+				<label for="changetype-all">All</label>
+
+				<input type="radio" name="type" id="changetype-establishment">
+				<label for="changetype-establishment">Establishments</label>
+
+				<input type="radio" name="type" id="changetype-address">
+				<label for="changetype-address">Addresses</label>
+
+				<input type="radio" name="type" id="changetype-geocode">
+				<label for="changetype-geocode">Geocodes</label>
+			</div>
+			<div id="strict-bounds-selector" class="pac-controls">
+				<input type="checkbox" id="use-strict-bounds" value="">
+				<label for="use-strict-bounds">Strict Bounds</label>
+			</div>
+		</div>
+		<div id="pac-container">
+			<input id="pac-input" type="text"
+			placeholder="Enter a location">
+		</div>
+	</div>
+	<div id="map"></div>
+	<div id="infowindow-content">
+		<img src="" width="16" height="16" id="place-icon">
+		<span id="place-name"  class="title"></span><br>
+		<span id="place-address"></span>
+	</div>
+
+</div>
+<div class="mdl-dialog__actions">
+	<button ng-click="" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add</button>
+	<button ng-click="closeThisDialog()" type="button" class="mdl-button close">Cancel</button>
+</div>
+</div>
+

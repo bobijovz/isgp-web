@@ -1,0 +1,238 @@
+<style>
+	.demo-card-wide.mdl-card {
+		width: 90%;
+		margin: 50px auto;
+	}
+	.demo-card-wide > .mdl-card__title {
+		color: #fff;
+		background: #555555;
+	}
+	.demo-card-wide > .mdl-card__menu {
+		color: #fff;
+	}
+
+	.demo-card-wide > .mdl-card__supporting-text {
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.demo-card-wide > .mdl-grid {
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.demo-list-two {
+		width: 270px;
+	}
+	.mdl-grid{
+		width: 100%;
+	}
+
+	#list_area {
+		width:100%;
+		height: 400px !important;
+		margin-bottom:20px;
+		overflow-y: scroll;
+		display: block;
+
+	}
+
+	#list_area li {
+		width: 250px;
+		float:left;
+		display:inline-block;
+	}
+
+	#map {
+		height: 100%;
+	}
+	/* Optional: Makes the sample page fill the window. */
+	#description {
+		font-family: Roboto;
+		font-size: 15px;
+		font-weight: 300;
+	}
+
+	#infowindow-content .title {
+		font-weight: bold;
+	}
+
+	#infowindow-content {
+		display: none;
+	}
+
+	#map #infowindow-content {
+		display: inline;
+	}
+	#btn_add_area {
+		margin: 10px 10px 0 0;
+		outline: none;
+		box-shadow: : 0 2px 6px rgba(0, 0, 0, 0.3);
+
+	}
+
+	.pac-card {
+		margin: 10px 10px 0 0;
+		border-radius: 2px 0 0 2px;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		outline: none;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+		background-color: #fff;
+		font-family: Roboto;
+	}
+
+	#pac-container {
+		padding-bottom: 12px;
+		margin-right: 12px;
+	}
+
+	.pac-controls {
+		display: inline-block;
+		padding: 5px 11px;
+	}
+
+	.pac-controls label {
+		font-family: Roboto;
+		font-size: 13px;
+		font-weight: 300;
+	}
+
+	#pac-input {
+		background-color: #fff;
+		font-family: Roboto;
+		font-size: 15px;
+		font-weight: 300;
+		margin-left: 12px;
+		padding: 0 11px 0 13px;
+		text-overflow: ellipsis;
+		width: 400px;
+	}
+
+	#pac-input:focus {
+		border-color: #4d90fe;
+	}
+
+	#title {
+		color: #fff;
+		background-color: #4d90fe;
+		font-size: 25px;
+		font-weight: 500;
+		padding: 6px 12px;
+	}
+	.location-title {
+		display: block;
+		width: 120px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+</style>
+
+
+<div class="jumbotron text-center">
+	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Monitoring Affected Areas</h2>
+		</div>
+
+		<div class="mdl-grid" style="overflow: hidden; height: 500px; position: relative;">
+
+			<div class="mdl-cell mdl-cell--9-col">
+
+				<div class="pac-card" id="pac-card" ng-show="isAdd">
+					<div>
+						<div id="title">
+							Enter a location to add
+							<button ng-click="initDataMap()" style="float: right;" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">close</i></button>
+						</div>
+						<div id="type-selector" class="pac-controls">
+							<input ng-model="calamity" ng-value="'Typhoon'" type="radio" name="type" id="changetype-typhoon" checked="checked">
+							<label for="changetype-typhoon">Typhoon</label>
+
+							<input ng-model="calamity" ng-value="'Earthquake'" type="radio" name="type" id="changetype-earthquake">
+							<label for="changetype-earthquake">Earthquake</label>
+
+							<input ng-model="calamity" ng-value="'Tsunami'" type="radio" name="type" id="changetype-tsunami">
+							<label for="changetype-tsunami">Tsunami</label>
+
+							<input ng-model="calamity" ng-value="'Other'" type="radio" name="type" id="changetype-other">
+							<label for="changetype-other">Other</label>
+						</div>
+						<div id="strict-bounds-selector" class="pac-controls">
+							<input type="checkbox" id="use-strict-bounds" value="">
+							<label for="use-strict-bounds">Strict Bounds</label>
+						</div>
+					</div>
+					<div id="pac-container">
+						<input id="pac-input" type="text"
+						placeholder="Enter a location">
+					</div>
+				</div>
+				<button id="btn_add_area" ng-show="!isAdd" ng-click="initSearchMap()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
+					<i class="material-icons">add</i>
+				</button>
+				<div style="height: 100%; width: 100%;" id="map"></div>
+				<div id="infowindow-content">
+					<img src="" width="16" height="16" id="place-icon">
+					<span id="place-name"  class="title"></span><br>
+					<span id="place-address"></span>
+				</div>
+			</div>
+
+			<div class="mdl-cell mdl-cell--3-col" style=" overflow-y: scroll;">
+
+				<h5>List of Affected Areas</h5> 
+				<ul class="demo-list-two mdl-list">
+					
+				<!-- 	<li class="mdl-list__item mdl-list__item--two-line">
+						<span class="mdl-list__item-primary-content">
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-list__item-icon" for="list-checkbox-all">
+								<input type="checkbox" id="list-checkbox-all" class="mdl-checkbox__input" checked />
+							</label>
+							<span>Select all</span>
+							<span class="mdl-list__item-sub-title">62 reports</span>
+						</span>
+					</li> -->
+
+					<li ng-repeat="(key, item) in affected track by $index" class="mdl-list__item mdl-list__item--two-line">
+						<span class="mdl-list__item-primary-content">
+							<i class="material-icons mdl-list__item-avatar">place</i>
+							<span class="location-title">{{item.location}}</span>
+							<span class="mdl-list__item-sub-title">{{item.calamity}}</span>
+						</span>
+						<span ng-click="deleteArea(key)" ng-show="isSupAdmin" class="mdl-list__item-secondary-content">
+							<span class="mdl-list__item-secondary-info">Delete</span>
+							<a class="mdl-list__item-secondary-action" href=""><i class="material-icons">delete</i></a>
+						</span>
+					</li>
+					
+				</ul>
+
+			</div>
+
+		</div>
+
+
+
+		<div class="mdl-card__actions mdl-card--border">
+		</div>
+		<div class="mdl-card__supporting-text">
+			
+			
+			
+		</div>
+		<dialog class="mdl-dialog">
+		<h4 class="mdl-dialog__title">Confirmation</h4>
+			<div class="mdl-dialog__content">
+				<p>
+					Are you sure you want to {{confirm[0]}} this data?
+				</p>
+			</div>
+			<div class="mdl-dialog__actions">
+				<button type="button" class="mdl-button" id="confirm-proceed">Yes</button>
+				<button type="button" class="mdl-button close">Cancel</button>
+			</div>
+		</dialog>
+		
+	</div>
