@@ -1,15 +1,12 @@
 
 <style>
-	.demo-card-square.mdl-card {
-		width: 90%;
-		z-index: 0;
-		margin: 100px auto;
-	}
-	.demo-card-square > .mdl-card__title {
+
+	.mdl-card__title {
 		color: #fff;
 		background: #555555;
+		vertical-align: middle;
 	}
-	.demo-card-square > .mdl-card__supporting-text {
+	.mdl-card__supporting-text {
 
 		width: 95%;
 		margin: 0 auto;
@@ -22,26 +19,39 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
+	.li_menu i{
+		vertical-align: middle;
+	}
+
+	li:hover { cursor: pointer; cursor: hand; background: #cccccc;}
 
 </style>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="overflow: hidden;">
+	<div class="mdl-grid" style="width: 98%; height: 600px;">
 
-	<div class="demo-card-square mdl-card mdl-shadow--2dp">
-		<div class="mdl-card__title ">
-			<h2 class="mdl-card__title-text">Manage Relief Operations</h2>
-		</div>
-		<div class="mdl-card__supporting-text">
-			<div class="mdl-grid" >
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">assignment</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Operation List </h2> 
+					<button id="select_calamity"
+					        class="mdl-button mdl-js-button mdl-button--icon">
+					        <i class="material-icons">{{sCalamity}}</i>
+					</button>
 
-				<div class="mdl-cell mdl-cell--3-col" style="height: 600px; overflow:hidden; "  >
-					<h5>Operations</h5> 
-					<select ng-model="listOption" ng-change="refreshList()" style="left: 18%; top: 119px; position: absolute;">
-						<option id='0' >all</option>
-						<option id='1'>active</option>
-						<option id='2'>in-active</option>
-					</select>
-					<ul class="demo-list-control mdl-list" style="overflow-y: scroll;height: 65%;">
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+					    for="select_calamity">
+					   <li class="mdl-menu__item" ng-click="selCalamity('Fire')"><span class="li_menu"><i class="material-icons">whatshot</i> Fire </span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Typhoon')"><span class="li_menu"><i class="material-icons">flash_on</i> Typhoon</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Earthquake')"><span class="li_menu"><i class="material-icons">broken_image</i>Earthquake</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Tsunami')"><span class="li_menu"><i class="material-icons">warning</i>Tsunami</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Volcanic')"><span class="li_menu"><i class="material-icons">warning</i>Volcanic</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Insurgency')"><span class="li_menu"><i class="material-icons">warning</i>Insurgency</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Other')"><span class="li_menu"><i class="material-icons">warning</i>Other</span></li>
+					</ul>
+				</div>
+				<div class="mdl-card__supporting-text" style="overflow-y: auto; height: 100%; padding: 0px 9px; width: 95%;">
+					<ul class="demo-list-control mdl-list" style="width: 106%; height: 100%; overflow-y: scroll; margin: 0px auto;padding: 0px 0px;">
 						<li ng-repeat="(key, item) in filteredOp track by $index " class="mdl-list__item mdl-list__item--two-line mdl-js-ripple-effect">
 							<span class="mdl-list__item-primary-content ">
 								<input ng-click="logMe(item)" type="radio" id="list-option-{{$index}}" class="mdl-radio__button mdl-list__item-icon" name="options" value="{{$index}}" />
@@ -54,10 +64,8 @@
 						</li>
 					</ul>
 
-
-
-					<h5>Create a new Operation</h5>
-					
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
 					<label class="mdl-button mdl-js-button mdl-button--icon" for="txtWhere">
 						<i class="material-icons">add_circle</i>
 					</label>
@@ -66,81 +74,137 @@
 						<input ng-blur="txtWhere.isFocus= false" ng-focus="txtWhere.isFocus=true" ng-model="txtWhere.value" id="txtWhere"  name="txtWhere" type="text" class="mdl-textfield__input" placeholder=""/> 
 						<label class="mdl-textfield__label">Enter location of deployment</label>
 					</div>
-					
-					
 				</div>
-				<div class="mdl-cell mdl-cell--9-col" style=" overflow-y: scroll;">
-					<table ng-if="selectedOp != null" style="width: 100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-						<thead>
-							<tr>
-								<td style="text-align: left;" colspan="7">
-									<button ng-if="selectedOp.status == 'active'" ng-click="showConfirm()" style="top: 40px; right: 20px; position: absolute;"
-									class="mdl-button mdl-js-button mdl-button--icon">
-									<i class="material-icons">archive</i>
-								</button>
-								
-
-								<h4 style="vertical-align:middle;">
-									<i ng-if="selectedOp.status == 'active'" style="color: #009900" class="material-icons">check_circle</i>
-									<i ng-if="selectedOp.status == 'in-active'" style="color: #aa0000" class="material-icons">remove_circle</i>
-									{{selectedOp.title}}
-								</h4>
-
-								<i>{{selectedOp.location}}</i><br/>
-								<i>{{selectedOp.date}}</i>
-								<p><i>{{selectedOp.description}}</i></p>
+			</div>
+		</div>
+		<div class="mdl-cell mdl-cell--9-col" style="overflow-y: scroll; overflow-x: hidden; margin: 0px 8px;">
+			<div class="mdl-grid" style="width: 100%;  padding: 0px !important;">
+				<div class="mdl-cell mdl-cell--9-col" >
+					<div class="mdl-card mdl-shadow--2dp" style="width: 100%; ">
+						<div class="mdl-card__title">
+							<i class="material-icons">assignment_ind</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Details </h2> 
+						</div>
+						<div class="mdl-card__supporting-text" style=" width: 100%;">
+							<button ng-if="selectedOp.status == 'active'" ng-click="showConfirm()" style="top: 75px; right: 15px; position: absolute;"
+							class="mdl-button mdl-js-button mdl-button--icon">
+								<i class="material-icons">archive</i>
+							</button>
 
 
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align: right;"  colspan="7" >
-							<h5>Feedback</h5>
-							<b>Operation Status : {{opStatus}}</b><br /> 
-							<b>Rating : {{opRating}}</b><br />
-							</td>
-						</tr>
-						<tr>
 
-							<th><h6>Clothes</h6></th>
-							<th><h6>Food</h6></th>
-							<th ><h6>Medicine</h6></th>
-							<th ><h6>Others</h6></th>
-							<th ><h6>Rating</h6></th>
-							<th ><h6>Comments</h6></th>
-						</tr>
-					</thead>
-					<tbody ng-if="selectedFeed != null">
-						<tr ng-repeat="item in selectedFeed | orderBy:'timestamp':true">
 
-							<td class="mdl-data-table__cell">{{item.clothes}}</td>
-							<td class="mdl-data-table__cell">{{item.food}}</td>
-							<td class="mdl-data-table__cell">{{item.medicine}}</td>
-							<td class="mdl-data-table__cell">{{item.others}}</td>
-							<td class="mdl-data-table__cell">{{item.rating}}</td>
-							<td class="mdl-data-table__cell">{{item.comment}}</td>
-						</tr>
-					</tbody>
-				</table>
+						<h4 style="vertical-align:middle;">
+							<i ng-if="selectedOp.status == 'active'" style="color: #009900" class="material-icons">check_circle</i>
+							<i ng-if="selectedOp.status == 'in-active'" style="color: #aa0000" class="material-icons">remove_circle</i>
+							{{selectedOp.title}}
+						</h4>
+						<i>{{selectedOp.relief_count + ' relief count'}}</i><br/>
+						<i>{{selectedOp.location}}</i><br/>
+						<i>{{selectedOp.date}}</i>
+						<p><i>{{selectedOp.description}}</i></p>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--3-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+					<div class="mdl-card__title">
+						<i class="material-icons">assessment</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Status </h2> 
+					</div>
+					<div class="mdl-card__supporting-text" style="width: 87%; text-align: center;">
+						<b>Current Status : {{opStatus}}</b><br /> 
+						<h1>{{opRating}}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-grid" style="width: 100%; padding: 0px !important;">
+			<div class="mdl-cell mdl-cell--3-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 250px;">
+					<div class="mdl-card__title">
+						<i class="material-icons">restaurant</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="margin-top: 20px;"> Food Rate </h2>
+					</div>
+					<div class="mdl-card__supporting-text" style="height: 100%; width: 87%; text-align: center;">
+
+					<div id="barchart_food" style="width: 100%; height: 100%;"></div>
+						<!-- <h1 >{{ratings[0]}}<h1> -->
+					</div>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--3-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 250px;">
+					<div class="mdl-card__title">
+						<i class="material-icons">spa</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="margin-top: 20px;"> Clothes Rate </h2>
+					</div>
+					<div class="mdl-card__supporting-text" style="height: 100%; width: 87%; text-align: center;">
+							<div id="barchart_clothes" style="width: 100%; height: 100%;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--3-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 250px;">
+					<div class="mdl-card__title">
+						<i class="material-icons">local_hospital</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="margin-top: 20px;"> Medicine Rate </h2> 
+					</div>
+					<div class="mdl-card__supporting-text" style="height: 100%; width: 87%; text-align: center;">
+							<div id="barchart_medicine" style="width: 100%; height: 100%;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--3-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 250px;">
+					<div class="mdl-card__title">
+						<i class="material-icons">list</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="margin-top: 20px;"> Others Rate </h2> 
+					</div>
+					<div class="mdl-card__supporting-text" style="height: 100%; width: 87%; text-align: center;">
+							<div id="barchart_others" style="width: 100%; height: 100%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-grid" style="width: 100%; padding: 0px !important;">
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+					<div class="mdl-card__title">
+						<i class="material-icons">format_list_bulleted</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Feedback </h2> 
+					</div>
+					<div class="mdl-card__supporting-text" style="height: 100%; width: 100%; padding: 0px 0px;">
+						<table ng-if="selectedOp != null" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%; height: 100%;" >
+							<thead>
+								<tr>
+
+									<th><h6>Clothes</h6></th>
+									<th><h6>Food</h6></th>
+									<th ><h6>Medicine</h6></th>
+									<th ><h6>Others</h6></th>
+									<th ><h6>Rating</h6></th>
+									<th ><h6>Comments</h6></th>
+								</tr>
+							</thead>
+							<tbody ng-if="selectedFeed != null">
+								<tr ng-repeat="item in selectedFeed | orderBy:'timestamp':true">
+
+									<td class="mdl-data-table__cell">{{item.clothes}}</td>
+									<td class="mdl-data-table__cell">{{item.food}}</td>
+									<td class="mdl-data-table__cell">{{item.medicine}}</td>
+									<td class="mdl-data-table__cell">{{item.others}}</td>
+									<td class="mdl-data-table__cell">{{item.rating}}</td>
+									<td class="mdl-data-table__cell">{{item.comment}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="mdl-card__actions mdl-card--border">
-		<br />
-	</div>
-
-</div>
 </div>
 
-<!-- Colored FAB button -->
-	<!-- <button ng-click="showDialog()" style="position:fixed;right:80px;bottom:40px;" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-		<i class="material-icons">add</i>
-	</button> -->
+</div>
 
 	<dialog id="dialogCreate" class="mdl-dialog" style="width:50%; z-index: 1041 !important;"	>
 		<h4 class="mdl-dialog__title">Create an Operation</h4>
 		<div class="mdl-dialog__content">
-			<form name="operationForm">
+			<form name="operationForm" >
 				<table>
 					<tr>
 						<td style="width:50%; vertical-align:top;">
@@ -150,7 +214,8 @@
 									<label class="mdl-textfield__label">Operation Title</label>
 								</div>
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtWhen.value != null || txtWhen.isFocus == true}"> 
-									<input ng-blur="txtWhen.isFocus= false" ng-focus="txtWhen.isFocus=true" ng-model="txtWhen.value" id="txtWhen"  name="txtWhen" type="date" class="mdl-textfield__input" required> 
+									<input min="{{dateToday | date: 'yyyy-MM-dd'}}" ng-blur="txtWhen.isFocus= false" ng-focus="txtWhen.isFocus=true" ng-model="txtWhen.value" id="txtWhen"  name="txtWhen" type="date" class="mdl-textfield__input" 
+									  required> 
 									<label class="mdl-textfield__label">Date</label>
 								</div>
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtDesc.value != null || txtDesc.isFocus == true}"> 
@@ -167,7 +232,7 @@
 									<label class="mdl-textfield__label">Location</label>
 								</div> -->
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'is-focused':txtCount.value != null || txtCount.isFocus == true}">
-									<input ng-blur="txtCount.isFocus= false" ng-focus="txtCount.isFocus=true" ng-model="txtCount.value" id="txtCount"  name="txtCount"  class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" required>
+									<input ng-blur="txtCount.isFocus= false" ng-focus="txtCount.isFocus=true" ng-model="txtCount.value" id="txtCount"  name="txtCount"  class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" required>
 									<label class="mdl-textfield__label" for="sample4">Relief Count</label>
 									<span class="mdl-textfield__error">Input is not a valid number!</span>
 								</div>
@@ -176,9 +241,9 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" ng-class="{'is-focused':textArea.value != null || textArea.isFocus == true}">
 
 									<select class="mdl-textfield__input" ng-blur="textArea.isFocus= false" ng-focus="textArea.isFocus=true" ng-model="textArea.value" id="textArea"  name="textArea"  required>
-										<option value="{{key}}" class="mdl-menu__item" ng-repeat="(key, x) in affected track by $index">{{x.location}}</option>
+										<option value="{{x.id}}" class="mdl-menu__item" ng-repeat="(key, x) in affected track by $index">{{x.description}}</option>
 									</select>
-									<label for="textArea" class="mdl-textfield__label">Area</label>
+									<label for="textArea" class="mdl-textfield__label">Affected Area</label>
 
 								</div>
 								

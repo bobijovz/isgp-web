@@ -3,7 +3,7 @@
 		width: 90%;
 		margin: 50px auto;
 	}
-	.demo-card-wide > .mdl-card__title {
+	.mdl-card__title {
 		color: #fff;
 		background: #555555;
 	}
@@ -21,9 +21,6 @@
 		margin: 0 auto;
 	}
 
-	.demo-list-two {
-		width: 270px;
-	}
 	.mdl-grid{
 		width: 100%;
 	}
@@ -43,9 +40,7 @@
 		display:inline-block;
 	}
 
-	#map {
-		height: 100%;
-	}
+
 	/* Optional: Makes the sample page fill the window. */
 	#description {
 		font-family: Roboto;
@@ -98,7 +93,7 @@
 		font-weight: 300;
 	}
 
-	#pac-input {
+	#pac-input, #calamity_title {
 		background-color: #fff;
 		font-family: Roboto;
 		font-size: 15px;
@@ -107,6 +102,7 @@
 		padding: 0 11px 0 13px;
 		text-overflow: ellipsis;
 		width: 400px;
+		margin-bottom: 5px;
 	}
 
 	#pac-input:focus {
@@ -122,29 +118,119 @@
 	}
 	.location-title {
 		display: block;
-		width: 120px;
+		width: 175px;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
+	.item-icon {
+		margin-right: 5px !important;
+	}
+	#chart_wrap {
+		position: relative;
+		padding-bottom: 100%;
+		height: 0;
+		overflow:hidden;
+	}
+
+	#piechart {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width:100%;
+		height:100%;
+	}
+
+	.mdl-list__item--three-line .mdl-list__item-primary-content {
+		height: 75px !important;
+	}
+
+	.mdl-list__item--three-line .mdl-list__item-secondary-content {
+		height: 30px !important;
+	}
+	.li_menu i{
+		vertical-align: middle;
+	}
+	li:hover { cursor: pointer; cursor: hand; background: #cccccc;}
+
 </style>
 
 
 <div class="jumbotron text-center">
-	<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">Monitoring Affected Areas</h2>
+	<div class="mdl-grid" style="width: 98%; height: 600px;">
+
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">assignment_late</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Affected Areas </h2> 
+					<!-- <select>
+						<option><i class="material-icons">whatshot</i></option>
+						<option><i class="material-icons">flash_on</i></option>
+						<option><i class="material-icons">broken_image</i></option>
+					</select> -->
+					<!-- Right aligned menu below button -->
+					<button id="select_calamity"
+					        class="mdl-button mdl-js-button mdl-button--icon">
+					        <i class="material-icons">{{sCalamity}}</i>
+					</button>
+
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+					    for="select_calamity">
+					  <li class="mdl-menu__item" ng-click="selCalamity('Fire')"><span class="li_menu"><i class="material-icons">whatshot</i> Fire </span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Typhoon')"><span class="li_menu"><i class="material-icons">flash_on</i> Typhoon</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Earthquake')"><span class="li_menu"><i class="material-icons">broken_image</i>Earthquake</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Tsunami')"><span class="li_menu"><i class="material-icons">warning</i>Tsunami</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Volcanic')"><span class="li_menu"><i class="material-icons">warning</i>Volcanic</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Insurgency')"><span class="li_menu"><i class="material-icons">warning</i>Insurgency</span></li>
+					  <li class="mdl-menu__item" ng-click="selCalamity('Other')"><span class="li_menu"><i class="material-icons">warning</i>Other</span></li>
+					</ul>
+				</div>
+				<div class="mdl-card__supporting-text" style="overflow: hidden; height: 100%; padding: 0px 9px; width: 95%;">
+					<ul class="demo-list-two mdl-list" style="width: 106%; height: 100%; overflow-y: scroll; margin: 0px auto;padding: 0px 0px;">
+
+						<li class="mdl-list__item mdl-list__item--one-line" ng-click="selectArea()">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">place</i>
+								<span class="location-title" style="width: 100%;"><h5>Display All</h5></span>
+								<span class="mdl-list__item-sub-title">&nbsp;</span>
+							</span>
+							<span  class="mdl-list__item-secondary-content">
+								<button class="mdl-list__item-secondary-action"><i class="material-icons">all_out</i></button>
+							</span>
+						</li>
+
+						<li ng-repeat="(key, item) in filteredAreas track by $index" class="mdl-list__item mdl-list__item--three-line" ng-click="selectArea(item)">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons  mdl-list__item-icon item-icon">place</i>
+								<span>{{item.calamity}}&nbsp;{{item.description}}</span>
+								<span class="mdl-list__item-text-body">
+									<i>{{item.date}}</i><br />
+									{{item.location}}
+
+								</span>
+							</span>
+							<span class="mdl-list__item-secondary-content">
+								<button ng-click="deleteArea(item.id)" class="mdl-list__item-secondary-action"><i class="material-icons">archive</i></button>
+							</span>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
 		</div>
 
-		<div class="mdl-grid" style="overflow: hidden; height: 500px; position: relative;">
+		<div class="mdl-cell mdl-cell--6-col">
 
-			<div class="mdl-cell mdl-cell--9-col">
-
-				<div class="pac-card" id="pac-card" ng-show="isAdd">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				
+				<!-- div class="pac-card" id="pac-card" ng-show="isAdd">
 					<div>
 						<div id="title">
-							Enter a location to add
-							<button ng-click="initDataMap()" style="float: right;" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">close</i></button>
+							Add new affected area
+							<button ng-click="initDataMap()" style="float: right;" class="mdl-button mdl-js-button mdl-button--icon">
+								<i class="material-icons">close</i>
+							</button>
 						</div>
 						<div id="type-selector" class="pac-controls">
 							<input ng-model="calamity" ng-value="'Typhoon'" type="radio" name="type" id="changetype-typhoon" checked="checked">
@@ -153,86 +239,191 @@
 							<input ng-model="calamity" ng-value="'Earthquake'" type="radio" name="type" id="changetype-earthquake">
 							<label for="changetype-earthquake">Earthquake</label>
 
+							<input ng-model="calamity" ng-value="'Fire'" type="radio" name="type" id="changetype-fire">
+							<label for="changetype-fire">Fire</label>
+
 							<input ng-model="calamity" ng-value="'Tsunami'" type="radio" name="type" id="changetype-tsunami">
 							<label for="changetype-tsunami">Tsunami</label>
+
+							<input ng-model="calamity" ng-value="'Volcanic'" type="radio" name="type" id="changetype-volcanic">
+							<label for="changetype-volcanic">Volcanic Eruption</label>
+
+							<input ng-model="calamity" ng-value="'Fire'" type="radio" name="type" id="changetype-Insurgency">
+							<label for="changetype-insurgency">Insurgency</label>
 
 							<input ng-model="calamity" ng-value="'Other'" type="radio" name="type" id="changetype-other">
 							<label for="changetype-other">Other</label>
 						</div>
-						<div id="strict-bounds-selector" class="pac-controls">
-							<input type="checkbox" id="use-strict-bounds" value="">
-							<label for="use-strict-bounds">Strict Bounds</label>
-						</div>
 					</div>
 					<div id="pac-container">
+						<input ng-model="calamity_title" id="calamity_title" type="text" placeholder="Enter calamity description" ><br />
 						<input id="pac-input" type="text"
-						placeholder="Enter a location">
+						placeholder="Enter calamity location">
+						
 					</div>
 				</div>
 				<button id="btn_add_area" ng-show="!isAdd" ng-click="initSearchMap()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
 					<i class="material-icons">add</i>
-				</button>
-				<div style="height: 100%; width: 100%;" id="map"></div>
+				</button> -->
+				<div style="height: 100%; width: 100%; position: inherit;" id="map"></div>
 				<div id="infowindow-content">
 					<img src="" width="16" height="16" id="place-icon">
 					<span id="place-name"  class="title"></span><br>
 					<span id="place-address"></span>
 				</div>
+				
 			</div>
-
-			<div class="mdl-cell mdl-cell--3-col" style=" overflow-y: scroll;">
-
-				<h5>List of Affected Areas</h5> 
-				<ul class="demo-list-two mdl-list">
-					
-				<!-- 	<li class="mdl-list__item mdl-list__item--two-line">
-						<span class="mdl-list__item-primary-content">
-							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-list__item-icon" for="list-checkbox-all">
-								<input type="checkbox" id="list-checkbox-all" class="mdl-checkbox__input" checked />
-							</label>
-							<span>Select all</span>
-							<span class="mdl-list__item-sub-title">62 reports</span>
-						</span>
-					</li> -->
-
-					<li ng-repeat="(key, item) in affected track by $index" class="mdl-list__item mdl-list__item--two-line">
-						<span class="mdl-list__item-primary-content">
-							<i class="material-icons mdl-list__item-avatar">place</i>
-							<span class="location-title">{{item.location}}</span>
-							<span class="mdl-list__item-sub-title">{{item.calamity}}</span>
-						</span>
-						<span ng-click="deleteArea(key)" ng-show="isSupAdmin" class="mdl-list__item-secondary-content">
-							<span class="mdl-list__item-secondary-info">Delete</span>
-							<a class="mdl-list__item-secondary-action" href=""><i class="material-icons">delete</i></a>
-						</span>
-					</li>
-					
-				</ul>
-
-			</div>
-
 		</div>
-
-
-
-		<div class="mdl-card__actions mdl-card--border">
-		</div>
-		<div class="mdl-card__supporting-text">
-			
-			
-			
-		</div>
-		<dialog class="mdl-dialog">
-		<h4 class="mdl-dialog__title">Confirmation</h4>
-			<div class="mdl-dialog__content">
-				<p>
-					Are you sure you want to {{confirm[0]}} this data?
-				</p>
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%; text-align: center;">
+				<div class="mdl-card__title">
+					<i class="material-icons">pie_chart</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text"> Graph </h2>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<div class="mdl-grid" style="width: 96%; ">
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{familySmall}} User/s<br />(1-5 members)</b>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{familyBig}} User/s<br />(6-10 members)</b>
+						</div>
+					</div>
+					<div id="chart_wrap">
+						<div id="piechart"></div>
+					</div>
+					<!-- <i>As of today, 14 out of 100 affected people have received relief in this area.</i> -->
+					<i>{{calamity}}-hit {{selectedArea}} and currently has {{familySmall + familyBig}} total relief request. </i>
+				</div>
 			</div>
-			<div class="mdl-dialog__actions">
-				<button type="button" class="mdl-button" id="confirm-proceed">Yes</button>
-				<button type="button" class="mdl-button close">Cancel</button>
-			</div>
-		</dialog>
-		
+		</div>
 	</div>
+
+	<div class="mdl-grid" style="width: 98%; height: 350px;">
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">restaurant</i>&nbsp;&nbsp;<h4 class="mdl-card__title-text"> Food </h4>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<div class="mdl-grid" style="width: 96%; text-align: center;">
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Food[0]}} User/s<br />(1-5 members)</b>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Food[1]}} User/s<br />(6-10 members)</b>
+						</div>
+					</div>
+					<div id="graph_food" style="width: 100%; height: 100%;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">spa</i>&nbsp;&nbsp;<h4 class="mdl-card__title-text"> Clothes </h4>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<div class="mdl-grid" style="width: 96%; text-align: center;">
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Clothes[0]}} User/s<br />(1-5 members)</b>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Clothes[1]}} User/s<br />(6-10 members)</b>
+						</div>
+					</div>
+					<div id="graph_clothes" style="width: 100%; height: 100%;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">local_hospital</i>&nbsp;&nbsp;<h4 class="mdl-card__title-text"> Medicine </h4>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<div class="mdl-grid" style="width: 96%; text-align: center;">
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Medicine[0]}} User/s<br />(1-5 members)</b>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Medicine[1]}} User/s<br />(6-10 members)</b>
+						</div>
+					</div>
+					<div id="graph_medicine" style="width: 100%; height: 100%;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">list</i>&nbsp;&nbsp;<h4 class="mdl-card__title-text"> Others </h4>
+				</div>
+				<div class="mdl-card__supporting-text">
+					<div class="mdl-grid" style="width: 96%; text-align: center;">
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Others[0]}} User/s<br />(1-5 members)</b>
+						</div>
+						<div class="mdl-cell mdl-cell--6-col">
+							<b>{{Others[1]}} User/s<br />(6-10 members)</b>
+						</div>
+					</div>
+					<div id="graph_other" style="width: 100%; height: 100%;"></div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="mdl-grid" style="width: 98%;" >
+		<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">list</i>&nbsp;&nbsp;<h4 class="mdl-card__title-text"> Request list </h4>
+				</div>
+				<div class="mdl-card__supporting-text" style="width: 100%; padding: 0px !important;">
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
+						<thead>
+							<tr>
+								<th>Email</th>
+								<th>Contact</th>
+								<th>Location</th>
+								<th>Head</th>
+								<th>Food/Medicine/Clothes</th>
+								<th>Others</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in filteredRequest | orderBy:'date':true">
+								<td class="mdl-data-table__cell">{{item.email}}</td>
+								<td class="mdl-data-table__cell">{{item.personToContactName}}<br />{{item.personToContactNumber}}</td>
+								<td class="mdl-data-table__cell">
+									<div class="location">{{item.location}} </div>  
+								</td>
+								<td class="mdl-data-table__cell">{{item.familySize == 'small' ? '1-5' : '6-10'}}</td>
+								<td class="mdl-data-table__cell">{{item.food}}/{{item.medicine}}/{{item.clothes}}</td>
+								<td class="mdl-data-table__cell">{{item.others}}</td>
+								<td class="mdl-data-table__cell">{{item.date}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<dialog class="mdl-dialog">
+		<h4 class="mdl-dialog__title">Confirmation</h4>
+		<div class="mdl-dialog__content">
+			<p>
+				Are you sure you want to {{confirm[0]}} this data?
+			</p>
+		</div>
+		<div class="mdl-dialog__actions">
+			<button type="button" class="mdl-button" id="confirm-proceed">Yes</button>
+			<button type="button" class="mdl-button close">Cancel</button>
+		</div>
+	</dialog>
+
+</div>

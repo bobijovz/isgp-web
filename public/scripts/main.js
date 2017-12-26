@@ -14,6 +14,8 @@ angular.module('myApp')
 	
 	$scope.Page = Page;
 
+	$scope.isSupAdmin = false;
+
 	$scope.logOut = function(){
 		auth.signOut();
 	}
@@ -49,27 +51,14 @@ angular.module('myApp')
 				userDetails.set(snapshot.val());
 				console.log(userDetails.get());
 				$scope.$apply(function() {
+					$scope.isSupAdmin = (snapshot.val().type == 'super-admin');
 					//$location.path('/monitoring');
-					if (snapshot.val().status == 'new') {
+					/*if (snapshot.val().type == 'super-admin') {
 						$scope.txtRegEmail = userDetails.get().email;
 						dialog.showModal();
-
-
-					/*ngDialog.open({
-						template: '../views/dialog_profiling.html',
-						className: 'ngdialog-theme-default',
-						controller: 'dialogProfileCtrl',
-						scope: $scope,
-						closeByEscape: false,
-						closeByNavigation: false,
-						closeByDocument: false,
-						showClose: false
-					});*/
-				}
-			});
-
-				
-				
+					}*/
+				});
+	
 			});
 			
 		} else {

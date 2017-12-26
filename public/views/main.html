@@ -13,6 +13,8 @@
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
 
+
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-indigo.min.css" >
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -36,21 +38,22 @@
       <span class="mdl-layout-title">Admin Panel</span>
       <nav class="mdl-navigation">
 
+        <a ng-if="isSupAdmin" class="mdl-navigation__link" href="#!admin">Admin</a>
         <a class="mdl-navigation__link" href="#!monitoring">Monitoring</a>
         <a class="mdl-navigation__link" href="#!operations">Operations</a>
-        <a class="mdl-navigation__link" href="#!request">Request</a>
+        <a class="mdl-navigation__link" href="#!archived">Archived</a>
         <a ng-click="logOut()" id="btnLogout" class="mdl-navigation__link" href="#">Logout</a>
       </nav>
     </div>
     <main class="mdl-layout__content">
       <div ng-view></div>
       <footer class="mdl-mini-footer">
-        <div class="mdl-mini-footer__center-section">
-          <div class="mdl-logo">Title</div>
-          <ul class="mdl-mini-footer__link-list">
+        <div class="mdl-mini-footer__right-section">
+          <div class="mdl-logo">Copyright © 2017 ISagip</div>
+          <!-- <ul class="mdl-mini-footer__link-list">
             <li><a href="#">Help</a></li>
             <li><a href="#">Privacy & Terms</a></li>
-          </ul>
+          </ul> -->
         </div>
       </footer>
     </main>
@@ -99,8 +102,9 @@
 <script type="text/javascript" src="../bower_components/material-design-lite/material.min.js"></script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBleEL_kBfNScoeG8P0SuOOhZkqQ6wFTVQ&libraries=places"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBleEL_kBfNScoeG8P0SuOOhZkqQ6wFTVQ&libraries=places,visualization"
 async defer"></script>
+
 
 <script type="text/javascript" src="../scripts/app.js"></script>
 <script type="text/javascript" src="../scripts/main.js"></script>
@@ -108,5 +112,6 @@ async defer"></script>
 <script type="text/javascript" src="../scripts/dialog-add-area.js"></script>
 <script type="text/javascript" src="../scripts/monitoring.js"></script>
 <script type="text/javascript" src="../scripts/operations.js"></script> 
-<script type="text/javascript" src="../scripts/request.js"></script> 
+<script type="text/javascript" src="../scripts/archived.js"></script> 
+<script type="text/javascript" src="../scripts/admin.js"></script> 
 </html>

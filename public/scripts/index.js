@@ -28,6 +28,18 @@ angular.module('myApp')
 		}
 	}
 
+	$scope.forgotPass = function(){
+		if (txtEmail.value != null){
+		auth.sendPasswordResetEmail(txtEmail.value).then(function() {
+		  showSnack("Please check your email for password reset");
+		}).catch(function(error) {
+		  showSnack(error);
+		});
+		} else {
+			showSnack("Please input email to reset.");
+		}
+	}
+
 	$scope.signUp = function(){
 		dialog.showModal();
 	}
@@ -58,25 +70,31 @@ angular.module('myApp')
 			if(firebaseUser.emailVerified){
 
 				database.ref('/users/' + auth.currentUser.uid).once('value').then(function(snapshot) {
-					//userDetails.set(snapshot.val());
-					if (snapshot.val() != null && snapshot.val().type != 'user' && snapshot.val().status != 'in-active') {
+					console.log(snapshot.val());
+					if (snapshot.val() != null && snapshot.val().type != 'user' && snapshot.val().status == 'active') {
 						showSnack("Logging in");
 						setTimeout(function() {
 							window.location.href = 'views/main.html';
 						}, 2000);
-					} else if (snapshot.val() == null) {
-						showSnack("Welcome new user!");
-						database.ref('/users/' + auth.currentUser.uid).set({
-							id: auth.currentUser.uid,
-							email : auth.currentUser.email,
-							type : "admin",
-							status : "new"
-						});
+					} else if (snapshot.val().type == 'super-admin') {
+						showSnack("Logging in");
 						setTimeout(function() {
 							window.location.href = 'views/main.html';
 						}, 2000);
+					} else if (snapshot.val().status == 'new') {
+						showSnack("Welcome new user!");
+						$scope.forgotPass();
+
+						database.ref('/users/' + auth.currentUser.uid).update({
+							status : "active"
+						});
+						auth.signOut();
+						
+						setTimeout(function() {
+							showSnack("Or try logging in with old password to continue.");
+						}, 2000);
 					} else {
-						showSnack("Need an admin account to proceed.");
+						showSnack("An error occured, please contact super admin to fix this.");
 						auth.signOut();
 					}
 				});

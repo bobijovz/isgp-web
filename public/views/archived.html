@@ -1,0 +1,169 @@
+<style type="text/css">
+	.mdl-card__title {
+		color: #fff;
+		background: #555555;
+		vertical-align: middle;
+	}
+	.mdl-card__supporting-text {
+
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.location-title {
+		display: block;
+		width: 150px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.li_menu i{
+		vertical-align: middle;
+	}
+	li:hover { cursor: pointer; cursor: hand; background: #cccccc;}
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		margin:20px 0px;
+	}
+
+	table, th, td {
+		border: 1px solid gray;
+	}
+	th {
+		vertical-align: middle;
+		background: #555555;
+		color: #fff;
+	}
+	td {
+		vertical-align: middle;
+		text-align: left;
+		padding: 15px;
+	}
+
+</style>
+
+<div class="jumbotron text-center" style="overflow: hidden;">
+	<div class="mdl-grid" style="width: 102%; height: 600px;">
+
+		<div class="mdl-cell mdl-cell--3-col">
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; height: 100%;">
+				<div class="mdl-card__title">
+					<i class="material-icons">assignment</i>&nbsp;&nbsp;<h2 class="mdl-card__title-text" style="width: 100%;"> Archived List </h2> 
+					<button id="select_calamity" class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">{{sCalamity}}</i>
+					</button>
+
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+					for="select_calamity">
+					<li class="mdl-menu__item" ng-click="selCalamity('Fire')"><span class="li_menu"><i class="material-icons">whatshot</i> Fire </span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Typhoon')"><span class="li_menu"><i class="material-icons">flash_on</i> Typhoon</span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Earthquake')"><span class="li_menu"><i class="material-icons">broken_image</i>Earthquake</span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Tsunami')"><span class="li_menu"><i class="material-icons">warning</i>Tsunami</span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Volcanic')"><span class="li_menu"><i class="material-icons">warning</i>Volcanic</span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Insurgency')"><span class="li_menu"><i class="material-icons">warning</i>Insurgency</span></li>
+					<li class="mdl-menu__item" ng-click="selCalamity('Other')"><span class="li_menu"><i class="material-icons">warning</i>Other</span></li>
+				</ul>
+			</div>
+			<div class="mdl-card__supporting-text" style="overflow-y: auto; height: 100%; padding: 0px 9px; width: 95%;">
+				<ul class="demo-list-control mdl-list" style="width: 106%; height: 100%; overflow-y: scroll; margin: 0px auto;padding: 0px 0px;">
+					<li ng-repeat="(key, item) in filteredOp track by $index " class="mdl-list__item mdl-list__item--two-line mdl-js-ripple-effect">
+						<span class="mdl-list__item-primary-content ">
+							<input ng-click="logMe(item)" type="radio" id="list-option-{{$index}}" class="mdl-radio__button mdl-list__item-icon" name="options" value="{{$index}}" />
+							<span class="location-title">{{item.title}}</span>
+							<span class="location-title mdl-list__item-sub-title">{{item.location}}</span>
+						</span>
+						<span class="mdl-list__item-secondary-content">
+							<i class="mdl-list__item-secondary-action material-icons">keyboard_arrow_right</i>
+						</span>
+					</li>
+				</ul>
+
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="mdl-cell mdl-cell--9-col" style="overflow-y: scroll; overflow-x: hidden; padding: 0px 50px;" >
+		<span> Print : 
+			<button ng-click="printNow()" id="select_calamity" class="mdl-button mdl-js-button mdl-button--icon">
+				<i class="material-icons">print</i> 
+			</button>
+				<!-- <button id="select_calamity" class="mdl-button mdl-js-button mdl-button--icon">
+					<i class="material-icons">save</i> 
+				</button> -->
+			</span>
+			<i style="float: right;">(Note: This preview is not exact as printing preview)</i>
+			<div class="mdl-card mdl-shadow--2dp" style="width: 100%; ">
+				<div id="printableDiv" style="padding: 80px;">
+					<span id="print_heading" >
+						<img style="width: 15%; float: left; margin: 0px 20px;" src="../images/logo-sagipkapamilya.png"/>
+						<h5 style="margin-bottom: 10px;">ABS-CBN Lingkod Kapamilya Foundation, Inc.</h5>
+						<i>Address : Mother Ignacia Avenue, corner Eugenio Lopez St., Diliman, Quezon City, Philippines</i> <br/>
+						<i>Email : foundation@abs-cbnfoundation.com,</i><br/>
+						<i>Contact : Trunkline: +632 415 2272 loc 3783 (Integrated Communications Department)</i>
+					</span>
+					<br />
+					<br />
+					<br />
+					<div id="print_body">
+						<table>
+							<thead>
+								<th colspan="3"><h4 style="text-align: center;"> Operation Details </h4></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><b>Calamity :</b> {{selectedOp.title}}&nbsp;{{allAffected[selectedOp.area].description}}</td>
+									<td colspan="2" style="text-align: center; background-color: #ccc;"> <b>Rating</b> </td>
+								</tr>
+								<tr>
+									<td><b>Location of Operation : </b><i>{{selectedOp.location}}</i></td>
+									<td rowspan="2" colspan="2" style="text-align: center;"><h2>{{opRating}}</h2></td>
+								</tr>
+								<tr>
+									<td><b>Deployment date : </b><i>{{selectedOp.date}}</i></td>
+								</tr>
+								<tr>
+									<td rowspan="2" style="text-align: left; vertical-align: top;"><b>Description : </b><i>{{selectedOp.description}}</i></td>
+									<td style="text-align: center; background-color: #ccc; width: 100px;"><b>Received</b></td>
+									<td style="text-align: center; background-color: #ccc; width: 100px;"><b>Reliefs</b></td>
+								</tr>
+								<tr>
+									<td style="text-align: center;"><b>{{opStatus}}</b></td>
+									<td style="text-align: center;"><b>{{selectedOp.relief_count}}</b></td>
+								</tr>
+								
+							</tbody>	
+						</table>
+
+						<table>
+							<thead>
+								<tr>
+									<th colspan="4" style="background: #555555;	color: #fff; text-align: center;"><h4 >Feedback Ratings</h4></th>
+								</tr>
+								
+							</thead>
+							<tbody>
+								<tr>
+									<td style="text-align: center; background-color: #ccc; width: 25%; color: black;"><b>Food</b></td>
+									<td style="text-align: center; background-color: #ccc; width: 25%; color: black;"><b>Medicine</b></td>
+									<td style="text-align: center; background-color: #ccc; width: 25%; color: black;"><b>Clothes</b></td>
+									<td style="text-align: center; background-color: #ccc; width: 25%; color: black;"><b>Others</b></td>
+								</tr>
+								<tr>
+									<td style="text-align: center; padding: 40px; font-size: 25px;"  ><b>{{ratings[0]}}</b></td>
+									<td style="text-align: center; padding: 40px; font-size: 25px;" ><b>{{ratings[1]}}</b></td>
+									<td style="text-align: center; padding: 40px; font-size: 25px;" ><b>{{ratings[2]}}</b></td>
+									<td style="text-align: center; padding: 40px; font-size: 25px;" ><b>{{ratings[3]}}</b></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

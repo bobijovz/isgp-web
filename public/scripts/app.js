@@ -1,3 +1,7 @@
+
+
+
+
 angular.module('myApp',['ngRoute','ngDialog'])
 .value('fbConfig', {
 	apiKey: "AIzaSyBe2S2pfk22ukZvH3o-se7fN-6LFHc2MXg",
@@ -14,6 +18,10 @@ angular.module('myApp',['ngRoute','ngDialog'])
 		templateUrl : '../views/monitoring.html',
 		controller  : 'monitoringCtrl'
 	})
+	.when('/admin', {
+		templateUrl : '../views/admin.html',
+		controller  : 'adminCtrl'
+	})
 	.when('/monitoring', {
 		templateUrl : '../views/monitoring.html',
 		controller  : 'monitoringCtrl'
@@ -22,9 +30,9 @@ angular.module('myApp',['ngRoute','ngDialog'])
 		templateUrl : '../views/operations.html',
 		controller  : 'operationsCtrl'
 	})
-	.when('/request', {
-		templateUrl : '../views/request.html',
-		controller  : 'requestCtrl'
+	.when('/archived', {
+		templateUrl : '../views/archived.html',
+		controller  : 'archivedCtrl'
 	})
 	.otherwise({
 		redirectTo: '/'
@@ -61,6 +69,31 @@ angular.module('myApp',['ngRoute','ngDialog'])
 			return user;
 		}
 	}
+})
+.factory('http', function($http){
+	var base = "https://us-central1-isagip-d2c44.cloudfunctions.net";
+	//var base = "http://localhost:5001/isagip-d2c44/us-central1";
+	return {
+		create : function(data){
+			var url = base +"/createAdmin";
+			return $http.post(url,data).then(function(response){
+				return response.data;
+			});
+		},
+		update : function(data){
+			var url = base +"/updateAdmin";
+			return $http.post(url,data).then(function(response){
+				return response.data;
+			});
+		},
+		delete : function(data){
+			var url = base +"/deleteAdmin";
+			return $http.post(url,data).then(function(response){
+				return response.data;
+			});
+		}
+	}
+
 })
 .factory('mySnack', function(){
 	var snack = null;

@@ -1,0 +1,36 @@
+[debug] [2017-12-21T00:20:44.890Z] ----------------------------------------------------------------------
+[debug] [2017-12-21T00:20:44.893Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2017-12-21T00:20:44.893Z] CLI Version:   3.15.2
+[debug] [2017-12-21T00:20:44.893Z] Platform:      win32
+[debug] [2017-12-21T00:20:44.893Z] Node Version:  v6.9.1
+[debug] [2017-12-21T00:20:44.894Z] Time:          Thu Dec 21 2017 08:20:44 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:44.894Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-21T00:20:44.970Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-12-21T00:20:44.970Z] > authorizing via signed-in user
+[debug] [2017-12-21T00:20:44.973Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-12-21T00:20:44.974Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/nxpU3dkQieaJZb9gwPbEKWK-UpHFVkrqjJR9XQlzoEg',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Dec 21 2017 08:20:44 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:46.215Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-21T00:20:46.223Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/isagip-d2c44  
+ Thu Dec 21 2017 08:20:46 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:48.467Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-21T00:20:48.468Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/isagip-d2c44/tokens  
+ Thu Dec 21 2017 08:20:48 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:49.880Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'D:\Users\Dell\Desktop\isagip'...
+[info] 
+[debug] [2017-12-21T00:20:49.880Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/isagip-d2c44  
+ Thu Dec 21 2017 08:20:49 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:52.467Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-21T00:20:52.468Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/856922625497/clients/_:getWebAppConfig  
+ Thu Dec 21 2017 08:20:52 GMT+0800 (Malay Peninsula Standard Time)
+[debug] [2017-12-21T00:20:54.812Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+
